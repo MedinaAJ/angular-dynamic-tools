@@ -1,0 +1,49 @@
+{
+  "name": "angular-dynamic-tools",
+  "version": "1.0.0",
+  "description": "Common project tools for build popups, notifications, forms and lists",
+  "main": "dist/angular-language-tools/bundles/angular-language-tools.umd.js",
+  "module": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
+  "es2015": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
+  "esm5": "dist/angular-language-tools/esm5/angular-language-tools.js",
+  "esm2015": "dist/angular-language-tools/esm2015/angular-language-tools.js",
+  "fesm2015": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
+  "typings": "dist/angular-language-tools/angular-language-tools.d.ts",
+  "scripts": {
+    "build": "ng-packagr -p projects/angular-language-tools/ng-package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MedinaAJ/angular-dynamic-tools.git"
+  },
+  "keywords": [
+    "dynamic",
+    "forms",
+    "list",
+    "tools",
+    "builder"
+  ],
+  "author": "Alejandro Medina",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MedinaAJ/angular-dynamic-tools/issues"
+  },
+  "homepage": "https://github.com/MedinaAJ/angular-dynamic-tools#readme",
+  "devDependencies": {
+    "@angular/compiler-cli": "17.0.8",
+    "ng-packagr": "^17.3.0",
+    "typescript": "5.2.2"
+  },
+  "dependencies": {
+    "@angular/common": "17.0.8",
+    "@angular/compiler": "17.0.8",
+    "@angular/core": "17.0.8",
+    "@angular/forms": "17.0.8",
+    "@angular/platform-browser": "17.0.8",
+    "@angular/cdk": "17.0.4",
+    "@angular/material": "16.2.0",
+    "@ngneat/transloco": "4.1.1",
+    "rxjs": "7.5.6",
+    "tslib": "2.4.0"
+  }
+}
