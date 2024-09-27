@@ -1,4 +1,4 @@
-name: angular-dynamic-tools
+name: Node.js Package
 
 on:
   release:
