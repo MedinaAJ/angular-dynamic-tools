@@ -10,6 +10,7 @@ import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {TranslocoHttpLoader} from './transloco.http-loader';
 // import {environment} from 'environments/environment';
 
+
 @NgModule({
   exports: [
     TranslocoModule
