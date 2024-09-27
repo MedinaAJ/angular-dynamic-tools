@@ -1,8 +1,11 @@
 {
-  "name": "angular-dynamic-tools",
+  "name": "@MedinaAJ/angular-dynamic-tools",
   "version": "1.0.0",
   "description": "Common project tools for build popups, notifications, forms and lists",
   "main": "dist/angular-language-tools/bundles/angular-language-tools.umd.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "module": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
   "es2015": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
   "esm5": "dist/angular-language-tools/esm5/angular-language-tools.js",
