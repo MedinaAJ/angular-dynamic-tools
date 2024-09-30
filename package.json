@@ -1,17 +1,15 @@
 {
   "name": "@MedinaAJ/angular-dynamic-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Common project tools for build popups, notifications, forms and lists",
-  "main": "dist/angular-language-tools/bundles/angular-language-tools.umd.js",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "module": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
-  "es2015": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
-  "esm5": "dist/angular-language-tools/esm5/angular-language-tools.js",
-  "esm2015": "dist/angular-language-tools/esm2015/angular-language-tools.js",
-  "fesm2015": "dist/angular-language-tools/fesm2015/angular-language-tools.js",
-  "typings": "dist/angular-language-tools/angular-language-tools.d.ts",
+  "main": "dist/angular-language-tools/fesm2022/angular-language-tools.mjs",
+  "module": "dist/angular-language-tools/fesm2022/angular-language-tools.mjs",
+  "es2020": "dist/angular-language-tools/esm2022/angular-language-tools.mjs",
+  "fesm2022": "dist/angular-language-tools/fesm2022/angular-language-tools.mjs",
+  "typings": "dist/angular-language-tools/index.d.ts",
   "scripts": {
     "build": "ng-packagr -p projects/angular-language-tools/ng-package.json",
     "watch": "ng-packagr -p projects/angular-language-tools/ng-package.json --watch"
