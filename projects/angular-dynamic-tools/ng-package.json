@@ -8,6 +8,7 @@
       "@angular/core",
       "@angular/common",
       "@angular/forms",
+      "@angular/router",
       "@angular/material",
       "@ngneat/transloco"
     ]

@@ -1,5 +1,5 @@
 {
-  "name": "@MedinaAJ/angular-dynamic-tools",
+  "name": "angular-dynamic-tools",
   "version": "1.0.1",
   "peerDependencies": {
     "@angular/animations": "17.0.8",
