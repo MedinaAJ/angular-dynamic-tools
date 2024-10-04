@@ -1,0 +1,26 @@
+<div
+    class="p-4 mt-4 mb-4 text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800">
+    <div class="flex items-center">
+        <mat-icon class="mr-1">info</mat-icon>
+        <h3 class="text-xl font-medium m-0">
+            <lang [str]="data.title"></lang>
+        </h3>
+    </div>
+    <div class="mt-2 mb-4 text-md" *ngIf="data.description">
+        <lang [str]="data.description"></lang>
+    </div>
+    <div class="flex">
+        <ng-container *ngFor="let action of data.actions; let i = index">
+            <a [routerLink]="action.link" *ngIf="i == 0"
+                class="text-white bg-yellow-800 hover:bg-yellow-900 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center text-decoration-none">
+                <mat-icon *ngIf="action.icon" class="mr-1">{{ action.icon }}</mat-icon>
+                <lang [str]="action.label"></lang>
+            </a>
+            <a [routerLink]="action.link" *ngIf="i != 0"
+                class="text-yellow-800 !border border-yellow-800 hover:bg-yellow-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center inline-flex items-center text-decoration-none">
+                <mat-icon *ngIf="action.icon" class="mr-1">{{ action.icon }}</mat-icon>
+                <lang [str]="action.label"></lang>
+            </a>
+        </ng-container>
+    </div>
+</div>

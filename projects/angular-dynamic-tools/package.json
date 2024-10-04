@@ -1,5 +1,5 @@
 {
-  "name": "@MedinaAJ/angular-language-tools",
+  "name": "@MedinaAJ/angular-dynamic-tools",
   "version": "1.0.1",
   "peerDependencies": {
     "@angular/animations": "17.0.8",
@@ -8,6 +8,7 @@
     "@angular/compiler": "17.0.8",
     "@angular/core": "17.0.8",
     "@angular/forms": "17.0.8",
+    "@angular/router": "17.0.8",
     "@angular/platform-browser": "17.0.8",
     "@ngneat/transloco": "4.1.1",
     "rxjs": "7.5.6"

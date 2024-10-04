@@ -5,14 +5,14 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "main": "dist/angular-language-tools/fesm2022/angular-language-tools.mjs",
-  "module": "dist/angular-language-tools/fesm2022/angular-language-tools.mjs",
-  "es2020": "dist/angular-language-tools/esm2022/angular-language-tools.mjs",
-  "fesm2022": "dist/angular-language-tools/fesm2022/angular-language-tools.mjs",
-  "typings": "dist/angular-language-tools/index.d.ts",
+  "main": "dist/angular-dynamic-tools/fesm2022/angular-dynamic-tools.mjs",
+  "module": "dist/angular-dynamic-tools/fesm2022/angular-dynamic-tools.mjs",
+  "es2020": "dist/angular-dynamic-tools/esm2022/angular-dynamic-tools.mjs",
+  "fesm2022": "dist/angular-dynamic-tools/fesm2022/angular-dynamic-tools.mjs",
+  "typings": "dist/angular-dynamic-tools/index.d.ts",
   "scripts": {
-    "build": "ng-packagr -p projects/angular-language-tools/ng-package.json",
-    "watch": "ng-packagr -p projects/angular-language-tools/ng-package.json --watch"
+    "build": "ng-packagr -p projects/angular-dynamic-tools/ng-package.json",
+    "watch": "ng-packagr -p projects/angular-dynamic-tools/ng-package.json --watch"
   },
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "@angular/compiler": "17.0.8",
     "@angular/core": "17.0.8",
     "@angular/forms": "17.0.8",
+    "@angular/router": "17.0.8",
     "@angular/platform-browser": "17.0.8",
     "@angular/material": "16.2.0",
     "@ngneat/transloco": "4.1.1",
