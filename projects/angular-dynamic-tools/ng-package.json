@@ -10,7 +10,9 @@
       "@angular/forms",
       "@angular/router",
       "@angular/material",
-      "@ngneat/transloco"
+      "@ngneat/transloco",
+      "apexcharts",
+      "ng-apexcharts"
     ]
   }
   

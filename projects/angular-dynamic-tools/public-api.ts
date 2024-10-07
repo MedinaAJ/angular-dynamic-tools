@@ -22,3 +22,10 @@ export * from './src/lib/dynamic-list/filter/filter.component';
 export * from './src/lib/dynamic-dialog/dynamic-dialog.types';
 export * from './src/lib/dynamic-dialog/dynamic-dialog.module';
 export * from './src/lib/dynamic-dialog/dynamic-dialog.component';
+
+// Dynamic chart
+export * from './src/lib/dynamic-chart/dynamic-chart.service';
+export * from './src/lib/dynamic-chart/dynamic-chart.module';
+export * from './src/lib/dynamic-chart/bar-chart/bar-chart.component';
+export * from './src/lib/dynamic-chart/line-chart/line-chart.component';
+export * from './src/lib/dynamic-chart/pie-chart/pie-chart.component';
