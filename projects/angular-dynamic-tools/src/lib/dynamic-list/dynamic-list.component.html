@@ -1,0 +1,174 @@
+<ng-container *ngIf="config">
+  <div class="w-full">
+    <div class="relative flex flex-col min-w-full overflow-hidden bg-white rounded" [class.shadow-sm]="config.header">
+      <!-- Header -->
+      <ng-container *ngIf="config.header">
+        <div class="flex flex-col md:flex-row justify-between items-center py-3 px-3 border-b">
+          <!-- Title & Description -->
+          <div>
+            <h1 *ngIf="config.header.title" class="text-3xl font-bold !text-primary-500"><lang [str]="config.header.title"></lang></h1>
+            <p *ngIf="config.header.description" class="text-secondary text-lg"><lang [str]="config.header.description"></lang></p>
+          </div>
+          
+          <!-- Filter & Actions -->
+          <div class="flex items-center mt-3 md:mt-0">
+            <ng-container *ngIf="config.header.filter">
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                  <mat-icon class="text-gray-500">search</mat-icon>
+                </span>
+                <input type="text" [(ngModel)]="searchText" placeholder="Buscar" class="pl-10 pr-4 py-2 border rounded">
+              </div>
+            </ng-container>
+
+            <button *ngFor="let button of config.header.actions" type="button" (click)="action(button.action)"
+              class="bg-primary-500 text-white py-2 px-4 rounded ml-2 flex items-center">
+              <mat-icon *ngIf="button.icon" class="mr-1 text-white">{{ button.icon }}</mat-icon>
+              <lang [str]="button.label"></lang>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Before Table Content -->
+      <div class="w-full">
+        <ng-content select="[dynamicListBeforeTable]"></ng-content>
+      </div>
+
+      <!-- Bulk Actions - Buttons -->
+      <ng-container *ngIf="config.bulkActions && hasAnySelectedRow()">
+        <div class="flex flex-col md:flex-row items-center p-3 border-b">
+          <div class="flex items-center mt-3 md:mt-0">
+            <button *ngFor="let button of config.bulkActions" type="button" (click)="bulkAction(button.action)"
+              class="mr-2 flex items-center justify-center bg-primary-500 text-white py-2 px-4 rounded">
+              <mat-icon *ngIf="button.icon" class="mr-1 text-white">{{ button.icon }}</mat-icon>
+              <span><lang [str]="button.label"></lang></span>
+            </button>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- Filters -->
+      <ng-container *ngIf="config.filters !== null || config.filters !== undefined">
+        <app-filter *ngIf="config.enableFilters" class="mt-3 ml-3" 
+          [rows]="config.rows" 
+          [filters]="config.filters" 
+          [buttonFilters]="config.buttonFilters"
+          (filtersChange)="applyFilters($event)" (saveCurrentFiltersEvent)="saveCurrentFilters($event)" (filtersBtnRemoveEvent)="filtersBtnRemove($event)"></app-filter>
+      </ng-container>
+
+      <!-- Table -->
+      <div class="flex overflow-hidden sm:p-3">
+        <div class="w-full relative overflow-auto sm:rounded-lg">
+          <table class="w-full text-base text-left text-gray-500" matSort (matSortChange)="sortData()" *ngIf="!config.customTable">
+            <thead class="text-sm text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <!-- Bulk Actions - Check header -->
+                <th scope="col" class="px-3 py-2 text-start" *ngIf="config.bulkActions">
+                  <div class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600" [(ngModel)]="selectAll" (click)="selectAllRows()">
+                  </div>
+                </th>
+                <!-- Column Headers -->
+                <ng-container *ngFor="let row of config.rows">
+                  <!-- Con sorting -->
+                  <ng-container *ngIf="config.sort && !row.notSort && row.type != 'button' && row.type != 'checkbox'">
+                    <th scope="col" class="px-3 py-2" mat-sort-header="{{ row.property }}" [id]="row.property" [ngClass]="row.class"><lang [str]="row.label"></lang></th>
+                  </ng-container>
+                  <!-- Sin sorting -->
+                  <ng-container *ngIf="!config.sort || row.type == 'button' || row.type == 'checkbox' || row.notSort">
+                    <th scope="col" class="px-3 py-2" [ngClass]="row.class"><lang [str]="row.label"></lang></th>
+                  </ng-container>
+                </ng-container>
+
+                <th *ngIf="!config.not_edit" scope="col" class="px-3 py-2"><span class="sr-only"><lang [str]="'Editar'"></lang></span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dataRow of config.data; let i = index" [class.border-b]="i != config.data.length - 1" class="bg-white hover:bg-gray-50" 
+              [hidden]="!isRowMatchingFilter(dataRow)">
+                <!-- Bulk Actions - Check row -->
+                <td class="px-3 py-2" *ngIf="config.bulkActions">
+                  <div class="flex items-center">
+                    <input type="checkbox" class="form-checkbox h-4 w-4 text-primary-600" [(ngModel)]="dataRow.selected">
+                  </div>
+                </td>
+                <!-- Data Rows -->
+                <ng-container *ngFor="let row of config.rows">
+                  <td class="px-3 py-2" [class.font-bold]="row.bolder" [class.text-gray-800]="row.bolder" [ngClass]="row.class">
+                    <ng-container *ngIf="!row.show_condicional || row.show_condicional(dataRow)">
+                      <ng-container [ngSwitch]="row.type">
+
+                        <!-- Default -->
+                        <ng-container *ngSwitchDefault>
+                          <div 
+                            [innerHTML]="this.sanitized.bypassSecurityTrustHtml(renderCellValue(row, dataRow))" 
+                            [matTooltip]="row?.tooltipLabel ? row.tooltipLabel(dataRow) : null">
+                          </div>
+                        </ng-container>
+
+                        <!-- Link -->
+                        <ng-container *ngSwitchCase="'link'">
+                          <span *ngIf="isLinkRow(row)" class="font-bold !text-primary cursor-pointer" (click)="action(row.action, dataRow)">
+                            {{ renderCellValue(row, dataRow) }}
+                          </span>
+                        </ng-container>
+
+                        <!-- Icon -->
+                        <ng-container *ngSwitchCase="'icon'">
+                          <mat-icon>{{ renderCellValue(row, dataRow) }}</mat-icon>
+                        </ng-container>
+
+                        <!-- Checkbox -->
+                        <ng-container *ngSwitchCase="'checkbox'">
+                          <mat-icon *ngIf="isCheckboxRow(row) && row.value(dataRow)" class="text-primary-500">
+                            {{ row.override_icon_check ? row.override_icon_check : 'check' }}
+                          </mat-icon>
+                          <span *ngIf="isCheckboxRow(row) && !row.value(dataRow)" class="font-bold text-red-500 flex items-center cursor-pointer" (click)="action(row.action, dataRow)" [matTooltip]="row.tooltip">
+                            <mat-icon class="{{row.override_color_action ? row.override_color_action : ''}}">
+                              {{ row.override_icon_uncheck ? row.override_icon_uncheck : 'close' }}
+                            </mat-icon>
+                          </span>
+                        </ng-container>
+
+                        <!-- Button -->
+                        <ng-container *ngSwitchCase="'button'">
+                          <button mat-icon-button *ngIf="isButtonRow(row)" class="font-bold flex items-center" (click)="action(row.action, dataRow)" [ngClass]="row.class ?? '!text-primary'">
+                            <mat-icon *ngIf="row.icon" [matBadge]="row.badge && row.badge(dataRow) ? row.badge(dataRow) : 0" [matBadgeHidden]="!row.badge || row.badge(dataRow) == 0" matBadgeSize="small">{{ row.icon }}</mat-icon>
+                          </button>
+                        </ng-container>
+
+                      </ng-container>
+                    </ng-container>
+                  </td>
+                </ng-container>
+
+                <!-- Edit Action -->
+                <td *ngIf="!config.not_edit" class="px-3 py-2 text-right">
+                  <span class="font-bold !text-primary cursor-pointer" (click)="action('upsert', dataRow)"><mat-icon>edit</mat-icon></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-content *ngIf="config.customTable" select="[dynamicCustomTable]"></ng-content>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="w-full flex items-center justify-end">
+        <mat-paginator *ngIf="config.pagination"
+          [length]="config.pagination.totalItems"
+          [pageSize]="config.pagination.itemsPerPage"
+          [pageSizeOptions]="config.pagination.pageSizeOptions"
+          (page)="pageChanged($event)"
+          showFirstLastButtons>
+        </mat-paginator>
+      </div>
+
+      <!-- After Table Content -->
+      <div class="w-full">
+        <ng-content select="[dynamicListAfterTable]"></ng-content>
+      </div>
+    </div>
+  </div>
+</ng-container>

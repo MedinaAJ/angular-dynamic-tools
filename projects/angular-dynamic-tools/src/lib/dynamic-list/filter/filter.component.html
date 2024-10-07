@@ -1,0 +1,92 @@
+<div class="filter-container flex items-center relative">
+  <button mat-icon-button class="small-icon-button mr-2" (click)="toggleFilterForm()" [matTooltip]="showFilterForm ? 'Cancelar' : 'Crear filtro'">
+    <mat-icon class="text-primary-500">filter_list</mat-icon>
+  </button>
+  
+  <!-- Formulario para añadir filtro -->
+  <form *ngIf="showFilterForm" [formGroup]="filterForm" (ngSubmit)="addFilter()" class="flex flex-col floating-form mr-3 max-w-3/4">
+    <span class="text-gray-800 text-xs">Nuevo filtro:</span>
+    <div class="flex items-center space-x-2">
+      <select formControlName="field" class="input-field">
+        <ng-container *ngFor="let row of rows">
+          <option *ngIf="!row.notFilter" [value]="row.property"><lang [str]="row.label"></lang></option>
+        </ng-container>
+      </select>
+      <select formControlName="operator" class="input-field w-16">
+        <option *ngFor="let operator of operators" [value]="operator.value"><lang [str]="operator.label"></lang></option>
+      </select>
+      <select formControlName="valueType" class="input-field w-24" [disabled]="filterForm.get('operator').value === MongoOperator.Regex || filterForm.get('operator').value === 'contains' || filterForm.get('operator').value === 'startsWith' || filterForm.get('operator').value === 'endsWith'">
+        <option *ngFor="let valueType of valueTypes" [value]="valueType.value">{{ valueType.label }}</option>
+      </select>
+      <ng-container [ngSwitch]="filterForm.get('valueType').value">
+        <input *ngSwitchCase="'Texto'" formControlName="value" type="text" placeholder="Value" class="input-field" />
+        <input *ngSwitchCase="'NumeroEntero'" formControlName="value" type="number" placeholder="Value" class="input-field" />
+        <input *ngSwitchCase="'NumeroDecimal'" formControlName="value" type="number" step="any" placeholder="Value" class="input-field" />
+        <input *ngSwitchCase="'Fecha'" formControlName="value" type="date" placeholder="Value" class="input-field" />
+        <input *ngSwitchCase="'FechaHora'" formControlName="value" type="datetime-local" placeholder="Value" class="input-field" />
+        <select *ngSwitchCase="'Boolean'" formControlName="value" class="input-field">
+          <option [value]="true">True</option>
+          <option [value]="false">False</option>
+        </select>
+      </ng-container>
+      <button mat-icon-button class="small-icon-button mr-2" type="submit" matTooltip="Añadir">
+        <mat-icon class="text-primary-500">add</mat-icon>
+      </button>
+      <button mat-icon-button class="small-icon-button mr-2" type="button" matTooltip="Cancelar" color="secondary" (click)="toggleFilterForm()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+
+    <!-- Filtros prefabricados -->
+    <div class="w-full mt-2 border-t pt-4 flex flex-row flex-wrap" *ngIf="buttonFilters?.length > 0">
+      <ng-container *ngFor="let btn of buttonFilters">
+        <button mat-stroked-button *ngIf="!editBtnFilter"
+          type="button"
+          class="mr-1 mb-1" 
+          (click)="selectStoredFilter(btn.filters)" [matTooltip]="'Aplicar filtro guardado'">
+          {{ btn.label }}
+        </button>
+        <button mat-stroked-button *ngIf="editBtnFilter"
+          type="button"
+          class="mr-1 mb-1 bg-red-500 text-white" 
+          (click)="removeStoredFilter(btn)" [matTooltip]="'Eliminar filtro guardado'">
+          <mat-icon class="text-white">delete</mat-icon>
+          {{ btn.label }}
+        </button>
+      </ng-container>
+      <button mat-icon-button class="small-icon-button" *ngIf="buttonFilters.length > 0" (click)="editBtnFilter = !editBtnFilter" type="button"
+        [matTooltip]="editBtnFilter ? 'Cancelar' : 'Administrar filtros guardados'">
+        <mat-icon>{{ editBtnFilter ? 'cancel' : 'edit' }}</mat-icon>
+      </button>
+    </div>
+  </form>
+
+  <!-- Lista de filtros -->
+  <div class="flex flex-wrap space-x-2">
+    <div *ngFor="let filter of filters; let i = index" class="flex items-center bg-gray-200 text-gray-800 rounded-full px-2 py-1 mb-1">
+      <span class="text-xs">
+        {{ getLabelForField(filter.field) }} 
+        {{ getLabelForOperator(filter.operator, filter.value) }} 
+        <ng-container [ngSwitch]="filter.valueType">
+          <ng-container *ngSwitchCase="'Fecha'">{{ filter.value | date:'dd/MM/yyyy' }}</ng-container>
+          <ng-container *ngSwitchDefault>{{ cleanFilterValue(filter.operator, filter.value) }}</ng-container>
+        </ng-container>        
+      </span>
+      <button mat-icon-button class="small-icon-button ml-1" (click)="removeFilter(i)" matTooltip="Eliminar filtro">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <ng-container *ngIf="filters.length > 0">
+      <div class="flex items-center bg-gray-400 rounded-full px-2 py-1 mb-1 mr-1">
+        <button mat-icon-button class="small-icon-button" (click)="removeAllFilters()" matTooltip="Eliminar todos">
+          <mat-icon class="text-gray-700">close</mat-icon>
+        </button>
+      </div>
+      <div class="flex items-center bg-primary-400 rounded-full px-2 py-1 mb-1">
+        <button mat-icon-button class="small-icon-button" (click)="saveCurrentFilters()" matTooltip="Guardar filtros actuales">
+          <mat-icon class="text-primary-700">save</mat-icon>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>
