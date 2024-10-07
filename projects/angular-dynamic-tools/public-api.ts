@@ -16,3 +16,9 @@ export * from './src/lib/dynamic-list/dynamic-list.module';
 export * from './src/lib/dynamic-list/dynamic-list.component';
 export * from './src/lib/dynamic-list/filter/filter.module';
 export * from './src/lib/dynamic-list/filter/filter.component';
+
+
+// Dynamic dialog
+export * from './src/lib/dynamic-dialog/dynamic-dialog.types';
+export * from './src/lib/dynamic-dialog/dynamic-dialog.module';
+export * from './src/lib/dynamic-dialog/dynamic-dialog.component';
