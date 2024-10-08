@@ -1,0 +1,41 @@
+<form *ngIf="this.form" [formGroup]="form">
+    <mat-stepper style="width: 100%;" [ngClass]="stepperForm.config.class" [orientation]="stepperForm.config.orientation" [linear]="stepperForm.config.linear" #stepper>
+        <ng-container *ngFor="let step of stepperForm.steps; let i = index">
+            <mat-step>
+                <ng-template matStepLabel>
+                  {{ step.title }}
+                </ng-template>
+                <dynamic-form *ngIf="step.parent_id == undefined" [fields]="step.fields" [form]="this.form" [showSubmit]="false" (fieldChange)="onChange($event)"></dynamic-form>
+                <dynamic-form *ngIf="step.parent_id" [fields]="step.fields" [form]="_DynamicFormService.getFormGroup(this.form, step, stepperForm.steps)" [showSubmit]="false" (fieldChange)="onChange($event)"></dynamic-form>
+                <div class="flex justify-end mt-3">
+                    <button *ngIf="i != 0" matStepperPrevious type="button" class="border border-primary-500 text-primary-500 py-2 px-4 rounded mr-2">
+                        Atrás
+                    </button>
+                    <button matStepperNext type="button" class="bg-primary-500 hover:bg-primary-700 text-white py-2 px-4 rounded">
+                        Siguiente
+                    </button>
+                </div>
+            </mat-step>            
+        </ng-container>
+        
+        <!-- Static finish step -->
+        <mat-step>
+            <ng-template matStepLabel>
+                Finalizar
+            </ng-template>
+            <div class="flex justify-end mt-3">
+                <button matStepperPrevious type="button" class="border border-primary-500 text-primary-500 py-2 px-4 rounded mr-2">
+                    Atrás
+                </button>
+                <button (click)="save()" [disabled]="form.invalid" type="button" 
+                        [ngClass]="{
+                            'bg-gray-500 text-white': form.invalid,
+                            'bg-primary-500 text-white': !form.invalid
+                        }"
+                        class="py-2 px-4 rounded">
+                    Guardar
+                </button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</form>
