@@ -12,6 +12,8 @@ export class PieChartComponent implements OnChanges {
   @Input() series: number[] = [];
   @Input() type: ChartType = 'pie'; // Asegura que el tipo por defecto sea 'pie'
   @Input() mainColor?: string = '#cff4fc';
+  @Input() legendPosition?: 'top' | 'right' | 'bottom' | 'left' = 'right';
+  @Input() height?: number = 350;
 
   public chartOptions: Partial<ApexOptions>;
 
@@ -35,22 +37,12 @@ export class PieChartComponent implements OnChanges {
       colors: colors,
       chart: {
         type: this.type,
-        height: 350,
+        height: this.height,
       },
       labels: this.labels,
-      responsive: [{
-        breakpoint: 480,
-        options: {
-          chart: {
-            width: 200
-          },
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }],
+      responsive: [],
       legend: {
-        position: 'right',
+        position: this.legendPosition,
         offsetY: 0,
         height: 230,
       }
