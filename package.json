@@ -1,6 +1,6 @@
 {
   "name": "@MedinaAJ/angular-dynamic-tools",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Common project tools for build popups, notifications, forms and lists",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
