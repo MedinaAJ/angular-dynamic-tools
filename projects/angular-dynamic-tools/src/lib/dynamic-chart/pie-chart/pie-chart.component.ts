@@ -14,6 +14,7 @@ export class PieChartComponent implements OnChanges {
   @Input() mainColor?: string = '#cff4fc';
   @Input() legendPosition?: 'top' | 'right' | 'bottom' | 'left' = 'right';
   @Input() height?: number = 350;
+  @Input() showLegend?: boolean = true;
 
   public chartOptions: Partial<ApexOptions>;
 
@@ -42,6 +43,7 @@ export class PieChartComponent implements OnChanges {
       labels: this.labels,
       responsive: [],
       legend: {
+        show: this.showLegend,
         position: this.legendPosition
       }
     };
