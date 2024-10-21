@@ -42,9 +42,7 @@ export class PieChartComponent implements OnChanges {
       labels: this.labels,
       responsive: [],
       legend: {
-        position: this.legendPosition,
-        offsetY: 0,
-        height: 230,
+        position: this.legendPosition
       }
     };
   }
