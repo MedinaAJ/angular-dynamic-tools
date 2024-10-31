@@ -1,0 +1,30 @@
+<div class="p-6 bg-white max-w-lg mx-auto">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">{{ title }}</h2>
+  <p class="text-gray-600 mb-6">{{ description }}</p>
+  
+  <form (ngSubmit)="submit()" class="space-y-6">
+    <div>
+      <label for="fileInput" class="block text-sm font-medium text-gray-700">Adjunta tu archivo:</label>
+      <input 
+        id="fileInput" 
+        type="file" 
+        (change)="onFileChange($event)" 
+        class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
+      >
+    </div>
+
+    <div class="text-sm text-gray-600">
+      <span>{{ helpText }}</span>
+      <a [href]="exampleUrl" target="_blank" class="text-primary-600 hover:text-primary-800">Descarga el ejemplo de aquí</a>
+    </div>
+
+    <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit"
+      class="w-full bg-primary-600 text-white font-medium py-2 rounded-md hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+    >
+      Subir Archivo
+    </button>
+  </form>
+</div>

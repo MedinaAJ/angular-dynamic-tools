@@ -30,6 +30,10 @@ export * from './src/lib/dynamic-chart/bar-chart/bar-chart.component';
 export * from './src/lib/dynamic-chart/line-chart/line-chart.component';
 export * from './src/lib/dynamic-chart/pie-chart/pie-chart.component';
 
+// Import
+export * from './src/lib/import/import.module';
+export * from './src/lib/import/import.component';
+
 // Dynamic form
 // export * from './src/lib/dynamic-form/dynamic-form.types';
 // export * from './src/lib/dynamic-form/dynamic-form.service';
