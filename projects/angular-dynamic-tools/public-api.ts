@@ -34,6 +34,12 @@ export * from './src/lib/dynamic-chart/pie-chart/pie-chart.component';
 export * from './src/lib/import/import.module';
 export * from './src/lib/import/import.component';
 
+// Dynamic confirm prompt
+export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.service';
+export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.interface';
+export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.module';
+export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.component';
+
 // Dynamic form
 // export * from './src/lib/dynamic-form/dynamic-form.types';
 // export * from './src/lib/dynamic-form/dynamic-form.service';
