@@ -39,6 +39,8 @@ export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.service';
 export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.interface';
 export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.module';
 export * from './src/lib/dynamic-confirm-prompt/dynamic-confirm-prompt.component';
+export * from './src/lib/dynamic-confirm-prompt/prompt-base.component';
+export * from './src/lib/dynamic-confirm-prompt/prompt-mixin';
 
 // Dynamic form
 // export * from './src/lib/dynamic-form/dynamic-form.types';
