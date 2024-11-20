@@ -73,11 +73,11 @@
                 <ng-container *ngFor="let row of config.rows">
                   <!-- Con sorting -->
                   <ng-container *ngIf="config.sort && !row.notSort && row.type != 'button' && row.type != 'checkbox'">
-                    <th scope="col" class="px-3 py-2" mat-sort-header="{{ row.property }}" [id]="row.property" [ngClass]="row.class"><lang [str]="row.label"></lang></th>
+                    <th scope="col" class="px-3 py-2" mat-sort-header="{{ row.property }}" [id]="row.property" [ngClass]="row.class" [class.text-right]="row?.pipe == 'currency'"><lang [str]="row.label"></lang></th>
                   </ng-container>
                   <!-- Sin sorting -->
                   <ng-container *ngIf="!config.sort || row.type == 'button' || row.type == 'checkbox' || row.notSort">
-                    <th scope="col" class="px-3 py-2" [ngClass]="row.class"><lang [str]="row.label"></lang></th>
+                    <th scope="col" class="px-3 py-2" [ngClass]="row.class" [class.text-right]="row?.pipe == 'currency'"><lang [str]="row.label"></lang></th>
                   </ng-container>
                 </ng-container>
 
