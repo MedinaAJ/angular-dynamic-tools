@@ -11,7 +11,7 @@ export class ImportComponent implements OnInit {
   @Input() title: string = 'Importar Archivo'; // Título dinámico
   @Input() description: string = 'Por favor, sube tu archivo en el formato adecuado.'; // Descripción dinámica
   @Input() helpText: string = '¿No sabes en qué formato subir el archivo? '; // Texto de ayuda dinámico
-  @Input() exampleUrl: string = '#'; // URL de ejemplo dinámica
+  @Input() exampleUrl: string = ''; // URL de ejemplo dinámica
 
   @Output() upload = new EventEmitter<any>(); // Evento de subida de archivo
 
