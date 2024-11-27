@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { ButtonFilter, DynamicListConfig, DynamicListEvent, DynamicListRow, DynamicListRowButton, DynamicListRowCheckbox, DynamicListRowLink, FilterConfig, MongoOperator, ValueType } from './dynamic-list.types';
+import { ButtonFilter, DynamicListConfig, DynamicListEvent, DynamicListRow, DynamicListRowButton, DynamicListRowButtonGroup, DynamicListRowCheckbox, DynamicListRowLink, FilterConfig, MongoOperator, ValueType } from './dynamic-list.types';
 import { MatSort } from '@angular/material/sort';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { MatMenu } from '@angular/material/menu';
 
 @Component({
   selector: 'dynamic-list',
@@ -10,7 +11,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicListComponent {
-  
+  menuRefs: { [key: string]: MatMenu } = {};
+
+  registerMenu(key: string, menu: MatMenu): void {
+    this.menuRefs[key] = menu;
+  }
+
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('dataTable', { static: false }) dataTable: ElementRef;
 
@@ -189,5 +195,9 @@ export class DynamicListComponent {
    */
   isLinkRow(row: DynamicListRow | DynamicListRowLink): row is DynamicListRowLink {
     return row.type === 'link';
+  }
+
+  isButtonGroupRow(row: DynamicListRow | DynamicListRowButtonGroup): row is DynamicListRowButtonGroup {
+    return row.type === 'button_group';
   }
 }

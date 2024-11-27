@@ -11,7 +11,7 @@ export interface DynamicListRow {
     notFilter?: boolean;
     tooltipLabel?: (row: any) => string | null;
 
-    type?: 'text' | 'checkbox' | 'button' | 'icon' | 'link';
+    type?: 'text' | 'checkbox' | 'button' | 'icon' | 'link' | 'button_group';
     show_condicional?: (row: any) => boolean;
 }
 
@@ -46,6 +46,18 @@ export interface DynamicListRowLink extends DynamicListRow {
     action: string;
 
     badge?: (row: any) => number;
+}
+
+export interface DynamicListRowButtonGroup extends DynamicListRow {
+    type: 'button_group';
+    icon?: string;
+    buttons: Array<{
+        type: 'button';
+        action: string;
+        label: string;
+        icon?: string;
+        badge?: (row: any) => number;
+    }>;
 }
 
 export interface DynamicListAction {

@@ -6,6 +6,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { FormsModule } from '@angular/forms';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { FilterModule } from './filter/filter.module'; 
 import { LanguageModule } from '../language/language.module';
@@ -17,6 +18,7 @@ import { LanguageModule } from '../language/language.module';
   imports: [
     CommonModule,
     FormsModule,
+    MatMenuModule,
     MatIconModule,
     MatBadgeModule,
     MatPaginatorModule,
