@@ -144,16 +144,14 @@
                             <!-- Botón que abre el menú -->
                             <button
                               mat-icon-button
-                              [matMenuTriggerFor]="menuRefs['menu_' + i + '_' + j]"
+                              [matMenuTriggerFor]="getMenuByIndex(i)"
                             >
                               <mat-icon *ngIf="row.icon">{{ row.icon }}</mat-icon>
                               <mat-icon *ngIf="!row.icon">more_vert</mat-icon>
                             </button>
                         
                             <!-- Menú desplegable -->
-                            <mat-menu
-                              #menu="matMenu"
-                              (matMenuOpened)="registerMenu('menu_' + i + '_' + j, menu)">
+                            <mat-menu>
                               <button mat-menu-item *ngFor="let btn of row.buttons" (click)="action(btn.action, dataRow)">
                                 <mat-icon *ngIf="btn.icon">{{ btn.icon }}</mat-icon>
                                 <span>{{ btn.label }}</span>

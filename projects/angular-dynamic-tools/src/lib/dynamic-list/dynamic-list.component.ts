@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ButtonFilter, DynamicListConfig, DynamicListEvent, DynamicListRow, DynamicListRowButton, DynamicListRowButtonGroup, DynamicListRowCheckbox, DynamicListRowLink, FilterConfig, MongoOperator, ValueType } from './dynamic-list.types';
 import { MatSort } from '@angular/material/sort';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -11,10 +11,10 @@ import { MatMenu } from '@angular/material/menu';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicListComponent {
-  menuRefs: { [key: string]: MatMenu } = {};
+  @ViewChildren(MatMenu) menus!: QueryList<MatMenu>;
 
-  registerMenu(key: string, menu: MatMenu): void {
-    this.menuRefs[key] = menu;
+  getMenuByIndex(index: number): MatMenu | undefined {
+    return this.menus.toArray()[index];
   }
 
   @ViewChild(MatSort) sort: MatSort;
