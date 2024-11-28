@@ -58,21 +58,28 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Ajuste del comportamiento de operator y valueType
-    this.filterForm.get('field')?.valueChanges.subscribe((field) => {
+    this.filterForm.get('field').valueChanges.subscribe((field) => {
       const filterOptions = this.getFilterOptions(field);
+  
+      // Si hay opciones de filtro, forzamos el ValueType a 'Lista'
       if (filterOptions && filterOptions.length > 0) {
-        this.filterForm.get('valueType')?.setValue(ValueType.Lista);
-        this.filterForm.get('valueType')?.disable();
+        this.filterForm.get('valueType').setValue(ValueType.Lista);
+        this.filterForm.get('valueType').disable(); // Deshabilitamos el selector de tipo
       } else {
-        this.filterForm.get('valueType')?.enable();
+        this.filterForm.get('valueType').enable(); // Permitimos seleccionar otros tipos
+        this.filterForm.get('valueType').setValue(ValueType.Texto); // Valor por defecto
       }
+  
+      // Limpiar el valor actual si el campo cambia
+      this.filterForm.get('value').reset();
     });
   
-    this.filterForm.get('operator')?.valueChanges.subscribe((operator) => {
-      if (operator === MongoOperator.Regex || operator === 'contains' || operator === 'startsWith' || operator === 'endsWith') {
-        this.filterForm.get('valueType')?.setValue(ValueType.Texto);
-        this.filterForm.get('valueType')?.disable();
+    this.filterForm.get('operator').valueChanges.subscribe((value) => {
+      if (value === MongoOperator.Regex || value === 'contains' || value === 'startsWith' || value === 'endsWith') {
+        this.filterForm.get('valueType').setValue(ValueType.Texto);
+        this.filterForm.get('valueType').disable();
+      } else if (!this.getFilterOptions(this.filterForm.get('field').value)) {
+        this.filterForm.get('valueType').enable();
       }
     });
   }
