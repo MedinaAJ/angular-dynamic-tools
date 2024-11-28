@@ -107,10 +107,10 @@ export class FilterComponent implements OnInit {
   }
 
   addFilter() {
-    if(!this.filters) this.filters = [];
-    const form: any = this.filterForm.value;
-    const filter: FilterConfig = this.filterForm.value;
-
+    if (!this.filters) this.filters = [];
+    const form = this.filterForm.getRawValue(); // Obtener todos los valores, incluidos los deshabilitados
+    const filter: FilterConfig = { ...form }; // Clonar los valores para el nuevo filtro
+  
     // Postprocesado del valor según el operador seleccionado
     if (form.operator === 'contains') {
       filter.value = `.*${filter.value}.*`;
@@ -119,14 +119,12 @@ export class FilterComponent implements OnInit {
     } else if (form.operator === 'endsWith') {
       filter.value = `${filter.value}$`;
     }
-
-    if(form.operator === 'contains' || form.operator === 'startsWith' || form.operator === 'endsWith') {
+  
+    if (form.operator === 'contains' || form.operator === 'startsWith' || form.operator === 'endsWith') {
       filter.valueType = ValueType.Texto;
       filter.operator = MongoOperator.Regex;
     }
-
-    console.log(filter);
-
+  
     const validValue = this.validateValue(filter.value, filter.valueType);
     if (validValue !== null) {
       filter.value = validValue;
