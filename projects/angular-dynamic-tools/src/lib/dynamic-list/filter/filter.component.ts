@@ -45,7 +45,8 @@ export class FilterComponent implements OnInit {
     { label: 'Fecha', value: ValueType.Fecha },
     { label: 'Fecha Hora', value: ValueType.FechaHora },
     { label: 'Nº Entero', value: ValueType.NumeroEntero },
-    { label: 'Nº Decimal', value: ValueType.NumeroDecimal }
+    { label: 'Nº Decimal', value: ValueType.NumeroDecimal },
+    { label: 'Lista', value: ValueType.Lista }
   ];
 
   constructor(private fb: FormBuilder) {
