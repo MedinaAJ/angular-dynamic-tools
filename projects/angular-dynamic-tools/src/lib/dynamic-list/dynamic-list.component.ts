@@ -11,12 +11,7 @@ import { MatMenu } from '@angular/material/menu';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicListComponent {
-  @ViewChildren('headerMenu') headerMenus!: QueryList<MatMenu>;
   @ViewChildren('rowMenu') rowMenus!: QueryList<MatMenu>;
-
-  getHeaderMenuByIndex(index: number): MatMenu | undefined {
-    return this.headerMenus.toArray()[index];
-  }
 
   getRowMenuByIndex(index: number): MatMenu | undefined {
     return this.rowMenus.toArray()[index];
