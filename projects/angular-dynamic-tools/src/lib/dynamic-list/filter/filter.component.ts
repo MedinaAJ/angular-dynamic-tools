@@ -181,6 +181,7 @@ export class FilterComponent implements OnInit {
         return !isNaN(value) ? parseFloat(value) : null;
       case ValueType.Boolean:
         return value === 'true' ? true : value === 'false' ? false : null;
+      case ValueType.Lista:
       case ValueType.Texto:
         return value;
       case ValueType.Fecha:
