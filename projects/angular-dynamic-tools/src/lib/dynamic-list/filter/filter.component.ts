@@ -125,6 +125,8 @@ export class FilterComponent implements OnInit {
       filter.operator = MongoOperator.Regex;
     }
 
+    console.log(filter);
+
     const validValue = this.validateValue(filter.value, filter.valueType);
     if (validValue !== null) {
       filter.value = validValue;
