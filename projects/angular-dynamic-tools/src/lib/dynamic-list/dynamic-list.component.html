@@ -21,11 +21,38 @@
               </div>
             </ng-container>
 
-            <button *ngFor="let button of config.header.actions" type="button" (click)="action(button.action)"
-              class="bg-primary-500 text-white py-2 px-4 rounded ml-2 flex items-center">
-              <mat-icon *ngIf="button.icon" class="mr-1 text-white">{{ button.icon }}</mat-icon>
-              <lang [str]="button.label"></lang>
-            </button>
+            <ng-container *ngFor="let button of config.header.actions; let i = index">
+              <!-- Acción individual -->
+              <button *ngIf="!button.buttons" type="button" (click)="action(button.action)"
+                class="bg-primary-500 text-white py-2 px-4 rounded ml-2 flex items-center">
+                <mat-icon *ngIf="button.icon" class="mr-1 text-white">{{ button.icon }}</mat-icon>
+                <lang [str]="button.label"></lang>
+              </button>
+          
+              <!-- Grupo de botones -->
+              <div *ngIf="button.buttons" class="relative flex items-center">
+                <!-- Botón con etiqueta y menú -->
+                <button *ngIf="button.label" type="button" mat-button [matMenuTriggerFor]="getMenuByIndex(i)"
+                  class="bg-primary-500 text-white py-2 px-4 rounded ml-2 flex items-center">
+                  <mat-icon *ngIf="button.icon" class="mr-1 text-white">{{ button.icon }}</mat-icon>
+                  <lang [str]="button.label"></lang>
+                </button>
+
+                <!-- Botón con icono y menú -->
+                <button *ngIf="!button.label" mat-icon-button [matMenuTriggerFor]="getMenuByIndex(i)" class="ml-2">
+                  <mat-icon *ngIf="button.icon">{{ button.icon }}</mat-icon>
+                  <mat-icon *ngIf="!button.icon">more_vert</mat-icon>
+                </button>
+
+                <!-- Menú desplegable con botones -->
+                <mat-menu>
+                  <button mat-menu-item *ngFor="let btn of button.buttons" (click)="action(btn.action)">
+                    <mat-icon *ngIf="btn.icon">{{ btn.icon }}</mat-icon>
+                    <span>{{ btn.label }}</span>
+                  </button>
+                </mat-menu>
+              </div>
+            </ng-container>
           </div>
         </div>
       </ng-container>

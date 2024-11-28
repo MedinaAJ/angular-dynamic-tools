@@ -64,7 +64,13 @@ export interface DynamicListRowButtonGroup extends DynamicListRow {
 export interface DynamicListAction {
     label: string;
     icon?: string;
-    action: string; 
+    action?: string; // Opcional porque puede ser un grupo
+    buttons?: Array<{
+        type: 'button';
+        action: string;
+        label: string;
+        icon?: string;
+    }>;
 }
 
 export interface DynamicListConfig {
@@ -76,7 +82,7 @@ export interface DynamicListConfig {
     },
     bulkActions?: DynamicListAction[];
     not_edit?: boolean;
-    rows: (DynamicListRow | DynamicListRowCheckbox | DynamicListRowButton | DynamicListRowIcon | DynamicListRowLink)[];
+    rows: (DynamicListRow | DynamicListRowCheckbox | DynamicListRowButton | DynamicListRowIcon | DynamicListRowLink | DynamicListRowButtonGroup)[];
     data: any[];
     pagination?: {
         itemsPerPage: number,
