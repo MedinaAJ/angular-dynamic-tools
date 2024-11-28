@@ -11,10 +11,15 @@ import { MatMenu } from '@angular/material/menu';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicListComponent {
-  @ViewChildren(MatMenu) menus!: QueryList<MatMenu>;
+  @ViewChildren('headerMenu') headerMenus!: QueryList<MatMenu>;
+  @ViewChildren('rowMenu') rowMenus!: QueryList<MatMenu>;
 
-  getMenuByIndex(index: number): MatMenu | undefined {
-    return this.menus.toArray()[index];
+  getHeaderMenuByIndex(index: number): MatMenu | undefined {
+    return this.headerMenus.toArray()[index];
+  }
+
+  getRowMenuByIndex(index: number): MatMenu | undefined {
+    return this.rowMenus.toArray()[index];
   }
 
   @ViewChild(MatSort) sort: MatSort;

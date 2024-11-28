@@ -62,7 +62,7 @@ export interface DynamicListRowButtonGroup extends DynamicListRow {
 }
 
 export interface DynamicListAction {
-    label: string;
+    label?: string;
     icon?: string;
     action?: string; // Opcional porque puede ser un grupo
     buttons?: Array<{

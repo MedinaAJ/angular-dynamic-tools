@@ -32,20 +32,20 @@
               <!-- Grupo de botones -->
               <div *ngIf="button.buttons" class="relative flex items-center">
                 <!-- Botón con etiqueta y menú -->
-                <button *ngIf="button.label" type="button" mat-button [matMenuTriggerFor]="getMenuByIndex(i)"
+                <button *ngIf="button.label" type="button" mat-button [matMenuTriggerFor]="getHeaderMenuByIndex(i)"
                   class="bg-primary-500 text-white py-2 px-4 rounded ml-2 flex items-center">
                   <mat-icon *ngIf="button.icon" class="mr-1 text-white">{{ button.icon }}</mat-icon>
                   <lang [str]="button.label"></lang>
                 </button>
 
                 <!-- Botón con icono y menú -->
-                <button *ngIf="!button.label" mat-icon-button [matMenuTriggerFor]="getMenuByIndex(i)" class="ml-2">
+                <button *ngIf="!button.label" mat-icon-button [matMenuTriggerFor]="getHeaderMenuByIndex(i)" class="ml-2">
                   <mat-icon *ngIf="button.icon">{{ button.icon }}</mat-icon>
                   <mat-icon *ngIf="!button.icon">more_vert</mat-icon>
                 </button>
 
                 <!-- Menú desplegable con botones -->
-                <mat-menu>
+                <mat-menu #headerMenu>
                   <button mat-menu-item *ngFor="let btn of button.buttons" (click)="action(btn.action)">
                     <mat-icon *ngIf="btn.icon">{{ btn.icon }}</mat-icon>
                     <span>{{ btn.label }}</span>
@@ -171,14 +171,14 @@
                             <!-- Botón que abre el menú -->
                             <button
                               mat-icon-button
-                              [matMenuTriggerFor]="getMenuByIndex(i)"
+                              [matMenuTriggerFor]="getRowMenuByIndex(i)"
                             >
                               <mat-icon *ngIf="row.icon">{{ row.icon }}</mat-icon>
                               <mat-icon *ngIf="!row.icon">more_vert</mat-icon>
                             </button>
                         
                             <!-- Menú desplegable -->
-                            <mat-menu>
+                            <mat-menu #rowMenu>
                               <button mat-menu-item *ngFor="let btn of row.buttons" (click)="action(btn.action, dataRow)">
                                 <mat-icon *ngIf="btn.icon">{{ btn.icon }}</mat-icon>
                                 <span>{{ btn.label }}</span>
