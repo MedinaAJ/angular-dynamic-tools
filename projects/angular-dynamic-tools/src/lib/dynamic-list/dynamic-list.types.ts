@@ -10,6 +10,7 @@ export interface DynamicListRow {
     notSort?: boolean;
     notFilter?: boolean;
     tooltipLabel?: (row: any) => string | null;
+    filterOptions?: Array<{ label: string; value: any }>;
 
     type?: 'text' | 'checkbox' | 'button' | 'icon' | 'link' | 'button_group';
     show_condicional?: (row: any) => boolean;
@@ -112,7 +113,8 @@ export enum ValueType {
     FechaHora = 'FechaHora',
     NumeroEntero = 'NumeroEntero',
     NumeroDecimal = 'NumeroDecimal',
-    Objeto = 'Objeto'
+    Objeto = 'Objeto',
+    Lista = 'Lista',
   }
   
   export enum MongoOperator {
@@ -143,5 +145,4 @@ export enum ValueType {
     value: any;
     valueType: ValueType;
   }
-  
   

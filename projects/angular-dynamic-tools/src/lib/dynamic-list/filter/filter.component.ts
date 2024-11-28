@@ -58,15 +58,25 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filterForm.get('operator').valueChanges.subscribe(value => {
-      if (value === MongoOperator.Regex || value === 'contains' || value === 'startsWith' || value === 'endsWith') {
-        this.filterForm.get('valueType').setValue(ValueType.Texto);
-        this.filterForm.get('valueType').disable();
+    // Ajuste del comportamiento de operator y valueType
+    this.filterForm.get('field')?.valueChanges.subscribe((field) => {
+      const filterOptions = this.getFilterOptions(field);
+      if (filterOptions && filterOptions.length > 0) {
+        this.filterForm.get('valueType')?.setValue(ValueType.Lista);
+        this.filterForm.get('valueType')?.disable();
       } else {
-        this.filterForm.get('valueType').enable();
+        this.filterForm.get('valueType')?.enable();
+      }
+    });
+  
+    this.filterForm.get('operator')?.valueChanges.subscribe((operator) => {
+      if (operator === MongoOperator.Regex || operator === 'contains' || operator === 'startsWith' || operator === 'endsWith') {
+        this.filterForm.get('valueType')?.setValue(ValueType.Texto);
+        this.filterForm.get('valueType')?.disable();
       }
     });
   }
+  
   saveCurrentFilters() {
     let label = prompt('Introduce un nombre para el filtro');
     if(label) {
@@ -175,5 +185,10 @@ export class FilterComponent implements OnInit {
 
   isValidDate(value: string): boolean {
     return !isNaN(Date.parse(value));
+  }
+
+  getFilterOptions(field: string): Array<{ label: string; value: any }> | undefined {
+    const row = this.rows.find((r) => r.property === field);
+    return row?.filterOptions;
   }
 }
