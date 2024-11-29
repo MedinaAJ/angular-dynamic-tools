@@ -74,5 +74,24 @@ export function PromptMixin<TBase extends Constructor>(Base: TBase = Object as u
         }
       });
     }
+
+    openTextPrompt(title:string, description: string, onSave: (data: string) => void) {
+      (this as any).promptService.open({
+        title,
+        description,
+        icon: 'edit',
+        saveButtonText: 'Guardar',
+        saveButtonIcon: 'check',
+        cancelButtonText: 'Cancelar',
+        cancelButtonIcon: 'close',
+        showCancelButton: true,
+        inputType: 'text',
+        validators: [Validators.required]
+      }).subscribe((result: any) => {
+        if (result?.event === 'save' && result.data) {
+          onSave(result.data);
+        }
+      });
+    }
   };
 }
