@@ -61,19 +61,24 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
     this.filterForm.get('field').valueChanges.subscribe({
       next: (field) => {
-        const filterOptions = this.getFilterOptions(field);
-    
-        // Si hay opciones de filtro, forzamos el ValueType a 'Lista'
+        const selectedRow = this.rows.find((r) => r.property === field);
+        const filterOptions = selectedRow?.filterOptions;
+        const forcedValueType = selectedRow?.forcedValueType;
+      
         if (filterOptions && filterOptions.length > 0) {
           this.filterForm.get('operator').setValue(MongoOperator.Eq);
           this.filterForm.get('valueType').setValue(ValueType.Lista);
-          this.filterForm.get('valueType').disable(); // Deshabilitamos el selector de tipo
+          this.filterForm.get('valueType').disable();
+        } else if (forcedValueType) {
+          this.filterForm.get('operator').setValue(MongoOperator.Eq);
+          this.filterForm.get('valueType').setValue(forcedValueType);
+          this.filterForm.get('valueType').disable();
         } else {
           this.filterForm.get('valueType').enable();
           this.filterForm.get('operator').setValue(MongoOperator.Eq);
           this.filterForm.get('valueType').setValue(ValueType.Texto); // Valor por defecto
         }
-    
+      
         // Limpiar el valor actual si el campo cambia
         this.filterForm.get('value').reset();
       },

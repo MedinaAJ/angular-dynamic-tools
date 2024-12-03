@@ -11,6 +11,7 @@ export interface DynamicListRow {
     notFilter?: boolean;
     tooltipLabel?: (row: any) => string | null;
     filterOptions?: Array<{ label: string; value: any }>;
+    forcedValueType?: ValueType;
 
     type?: 'text' | 'checkbox' | 'button' | 'icon' | 'link' | 'button_group';
     show_condicional?: (row: any) => boolean;
