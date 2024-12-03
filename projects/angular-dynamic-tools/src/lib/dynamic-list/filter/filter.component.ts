@@ -59,29 +59,32 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.filterForm.get('field').valueChanges.subscribe((field) => {
-      const filterOptions = this.getFilterOptions(field);
-
-      console.log('filterOptions', filterOptions);
-      console.log('field', field);
-  
-      // Si hay opciones de filtro, forzamos el ValueType a 'Lista'
-      if (filterOptions && filterOptions.length > 0) {
-        this.filterForm.get('operator').setValue(MongoOperator.Eq);
-        this.filterForm.get('valueType').disable();
-
-        this.filterForm.get('valueType').setValue(ValueType.Lista);
-        this.filterForm.get('valueType').disable(); // Deshabilitamos el selector de tipo
-      } else {
-        this.filterForm.get('valueType').enable();
-        this.filterForm.get('operator').setValue(MongoOperator.Eq);
-
-        this.filterForm.get('valueType').enable(); // Permitimos seleccionar otros tipos
-        this.filterForm.get('valueType').setValue(ValueType.Texto); // Valor por defecto
-      }
-  
-      // Limpiar el valor actual si el campo cambia
-      this.filterForm.get('value').reset();
+    console.log('Formulario inicial:', this.filterForm.value);
+    this.filterForm.get('field').valueChanges.subscribe({
+      next: (field) => {
+        console.log('valueChanges emitido:', field);
+        const filterOptions = this.getFilterOptions(field);
+    
+        // Verifica los valores
+        console.log('filterOptions:', filterOptions);
+    
+        // Si hay opciones de filtro, forzamos el ValueType a 'Lista'
+        if (filterOptions && filterOptions.length > 0) {
+          this.filterForm.get('operator').setValue(MongoOperator.Eq);
+          this.filterForm.get('valueType').setValue(ValueType.Lista);
+          this.filterForm.get('valueType').disable(); // Deshabilitamos el selector de tipo
+        } else {
+          this.filterForm.get('valueType').enable();
+          this.filterForm.get('operator').setValue(MongoOperator.Eq);
+          this.filterForm.get('valueType').setValue(ValueType.Texto); // Valor por defecto
+        }
+    
+        // Limpiar el valor actual si el campo cambia
+        this.filterForm.get('value').reset();
+      },
+      error: (err) => {
+        console.error('Error en valueChanges:', err);
+      },
     });
   
     this.filterForm.get('operator').valueChanges.subscribe((value) => {
