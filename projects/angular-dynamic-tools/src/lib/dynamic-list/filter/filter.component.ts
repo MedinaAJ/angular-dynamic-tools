@@ -59,14 +59,9 @@ export class FilterComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Formulario inicial:', this.filterForm.value);
     this.filterForm.get('field').valueChanges.subscribe({
       next: (field) => {
-        console.log('valueChanges emitido:', field);
         const filterOptions = this.getFilterOptions(field);
-    
-        // Verifica los valores
-        console.log('filterOptions:', filterOptions);
     
         // Si hay opciones de filtro, forzamos el ValueType a 'Lista'
         if (filterOptions && filterOptions.length > 0) {
