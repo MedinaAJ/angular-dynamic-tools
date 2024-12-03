@@ -64,9 +64,15 @@ export class FilterComponent implements OnInit {
   
       // Si hay opciones de filtro, forzamos el ValueType a 'Lista'
       if (filterOptions && filterOptions.length > 0) {
+        this.filterForm.get('operator').setValue(MongoOperator.Eq);
+        this.filterForm.get('valueType').disable();
+
         this.filterForm.get('valueType').setValue(ValueType.Lista);
         this.filterForm.get('valueType').disable(); // Deshabilitamos el selector de tipo
       } else {
+        this.filterForm.get('valueType').enable();
+        this.filterForm.get('operator').setValue(MongoOperator.Eq);
+
         this.filterForm.get('valueType').enable(); // Permitimos seleccionar otros tipos
         this.filterForm.get('valueType').setValue(ValueType.Texto); // Valor por defecto
       }
