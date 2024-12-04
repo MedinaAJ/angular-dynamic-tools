@@ -154,6 +154,10 @@ export class DynamicListComponent {
     }
   }
 
+  getFilterRows(): DynamicListRow[] {
+    return [...this.config.rows, ...(this.config.aditionalFilterRows ?? [])]
+  }
+
   /**
    * Verifica si una fila coincide con el texto de búsqueda.
    * @param dataRow La fila de datos a verificar.

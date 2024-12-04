@@ -79,7 +79,7 @@
       <!-- Filters -->
       <ng-container *ngIf="config.filters !== null || config.filters !== undefined">
         <app-filter *ngIf="config.enableFilters" class="mt-3 ml-3" 
-          [rows]="config.rows" 
+          [rows]="getFilterRows()" 
           [filters]="config.filters" 
           [buttonFilters]="config.buttonFilters"
           (filtersChange)="applyFilters($event)" (saveCurrentFiltersEvent)="saveCurrentFilters($event)" (filtersBtnRemoveEvent)="filtersBtnRemove($event)"></app-filter>

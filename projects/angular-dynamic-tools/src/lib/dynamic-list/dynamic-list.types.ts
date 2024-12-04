@@ -103,6 +103,7 @@ export interface DynamicListConfig {
     };
     customTable?: boolean;
     filters?: FilterConfig[];
+    aditionalFilterRows?: (DynamicListRow | DynamicListRowCheckbox | DynamicListRowButton | DynamicListRowIcon | DynamicListRowLink | DynamicListRowButtonGroup)[];
     buttonFilters?: ButtonFilter[];
     enableFilters?: boolean;
     dynamicQuery?: boolean;
