@@ -86,14 +86,13 @@ export class FilterComponent implements OnInit {
         console.error('Error en valueChanges:', err);
       },
     });
-
     
     this.filterForm.get('valueType').valueChanges.subscribe((value) => {
-      if (value == ValueType.Boolean) {
-        this.filterForm.get('operator').setValue(MongoOperator.Eq);
-        this.filterForm.get('operator').disable();
+      if (value === ValueType.Boolean) {
+        this.filterForm.get('operator').setValue(MongoOperator.Eq, { emitEvent: false });
+        this.filterForm.get('operator').disable({ emitEvent: false });
       } else {
-        this.filterForm.get('operator').enable();
+        this.filterForm.get('operator').enable({ emitEvent: false });
       }
     });
   
@@ -101,7 +100,7 @@ export class FilterComponent implements OnInit {
       if (value === MongoOperator.Regex || value === 'contains' || value === 'startsWith' || value === 'endsWith') {
         this.filterForm.get('valueType').setValue(ValueType.Texto);
         this.filterForm.get('valueType').disable();
-      } else if (!this.getFilterOptions(this.filterForm.get('field').value) && this.filterForm.get('valueType').value != ValueType.Boolean) {
+      } else if (!this.getFilterOptions(this.filterForm.get('field').value)) {
         this.filterForm.get('valueType').enable();
       }
     });
