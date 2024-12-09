@@ -39,8 +39,8 @@
         <input *ngSwitchCase="'Fecha'" formControlName="value" type="date" placeholder="Value" class="border rounded px-2 py-1 w-48" />
         <input *ngSwitchCase="'FechaHora'" formControlName="value" type="datetime-local" placeholder="Value" class="border rounded px-2 py-1 w-48" />
         <select *ngSwitchCase="'Boolean'" formControlName="value" class="border rounded px-2 py-1 w-48">
-          <option [value]="true">True</option>
-          <option [value]="false">False</option>
+          <option [value]="true">Si</option>
+          <option [value]="false">No</option>
         </select>
       </ng-container>
       <button mat-icon-button class="text-gray-500 hover:text-gray-700 mr-2" type="submit" matTooltip="Añadir">

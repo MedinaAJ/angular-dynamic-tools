@@ -86,6 +86,16 @@ export class FilterComponent implements OnInit {
         console.error('Error en valueChanges:', err);
       },
     });
+
+    
+    this.filterForm.get('valueType').valueChanges.subscribe((value) => {
+      if (value === ValueType.Boolean) {
+        this.filterForm.get('operator').setValue(MongoOperator.Eq);
+        this.filterForm.get('operator').disable();
+      } else {
+        this.filterForm.get('operator').enable();
+      }
+    });
   
     this.filterForm.get('operator').valueChanges.subscribe((value) => {
       if (value === MongoOperator.Regex || value === 'contains' || value === 'startsWith' || value === 'endsWith') {
