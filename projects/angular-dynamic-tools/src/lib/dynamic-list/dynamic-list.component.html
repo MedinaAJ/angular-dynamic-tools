@@ -1,5 +1,5 @@
 <ng-container *ngIf="config">
-  <div class="w-full">
+  <div class="w-full" [style.height]="stickyHeader ? containerHeight : 'auto'">
     <div class="relative flex flex-col min-w-full overflow-hidden bg-white rounded" [class.shadow-sm]="config.header">
       <!-- Header -->
       <ng-container *ngIf="config.header">
@@ -89,7 +89,7 @@
       <div class="flex overflow-hidden sm:p-3">
         <div class="w-full relative overflow-auto sm:rounded-lg">
           <table class="w-full text-base text-left text-gray-500" matSort (matSortChange)="sortData()" *ngIf="!config.customTable">
-            <thead class="text-sm text-gray-700 uppercase bg-gray-50">
+            <thead class="text-sm text-gray-700 uppercase bg-gray-50" [ngClass]="{'sticky top-12 z-10 bg-gray-50': stickyHeader}" [style.top]="stickyTop">
               <tr>
                 <!-- Bulk Actions - Check header -->
                 <th scope="col" class="px-3 py-2 text-start" *ngIf="config.bulkActions">

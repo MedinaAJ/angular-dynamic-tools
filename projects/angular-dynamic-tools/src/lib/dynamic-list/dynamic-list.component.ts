@@ -22,6 +22,10 @@ export class DynamicListComponent {
 
   @Input() config!: DynamicListConfig;
 
+  @Input() stickyHeader: boolean = false;
+  @Input() stickyTop: string = '0px';
+  @Input() containerHeight: string = '70vh';
+
   @Output() event: EventEmitter<DynamicListEvent> = new EventEmitter<DynamicListEvent>();
 
   searchText: string = '';
