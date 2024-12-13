@@ -1,6 +1,6 @@
 <ng-container *ngIf="config">
-  <div class="w-full" [style.height]="stickyHeader ? containerHeight : 'auto'">
-    <div class="relative flex flex-col min-w-full overflow-hidden bg-white rounded" [class.shadow-sm]="config.header">
+  <div class="w-full">
+    <div class="relative flex flex-col min-w-full overflow-hidden bg-white rounded" [class.shadow-sm]="config.header" [style.height]="stickyHeader ? containerHeight : 'auto'">
       <!-- Header -->
       <ng-container *ngIf="config.header">
         <div class="flex flex-col md:flex-row justify-between items-center py-3 px-3 border-b">
